@@ -1,11 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Album from './pages/Album';
+import Favorites from './pages/Favorites';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
+import Search from './pages/Search';
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <p>TrybeTunes</p>
         <switch>
           <div data-testid="page-login">
             <Route exact path="/" component="Login" />
@@ -29,6 +33,11 @@ class App extends React.Component {
             <Route path="/rota-nao-mapeada" component="NotFound" />
           </div>
         </switch>
+        <Login />
+        <Album />
+        <Favorites />
+        <NotFound />
+        <Search />
       </BrowserRouter>
     );
   }
