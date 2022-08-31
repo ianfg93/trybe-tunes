@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
 import { createUser } from '../services/userAPI';
 
 class Login extends React.Component {
   state = {
-    name: '',
+    usuario: '',
     loading: false,
   };
 
@@ -13,27 +12,25 @@ class Login extends React.Component {
     const { target } = event;
     const { value } = target;
     this.setState({
-      name: value,
+      usuario: value,
     });
   };
 
-  handleClick = () => {
-    const { name } = this.state;
+  handleClick = async () => {
+    const { usuario } = this.state;
     const { history } = this.props;
-    this.setState({ loading: true }, async () => {
-      await createUser({ name });
-      history.push('/search');
-    });
+    this.setState({ loading: true });
+    await createUser({ name: usuario });
+    history.push('/search');
   };
 
   render() {
-    const { name, loading } = this.state;
+    const { usuario, loading } = this.state;
     const minimo = 3;
     return (
-      <div>
-        <Header />
-        {loading && (<p>Carregando...</p>)}
+      <div data-testid="page-login">
         <h1>Login</h1>
+        {loading && <p>Carregando...</p>}
         <form>
           <label htmlFor="login-name-input">
             Nome
@@ -41,14 +38,14 @@ class Login extends React.Component {
               type="text"
               data-testid="login-name-input"
               id="login-name-input"
-              value={ name }
+              value={ usuario }
               onChange={ this.handleChange }
             />
           </label>
           <button
             type="button"
             data-testid="login-submit-button"
-            disabled={ name.length < minimo }
+            disabled={ usuario.length < minimo }
             onClick={ this.handleClick }
           >
             Entrar
@@ -60,8 +57,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
-}.isRequired;
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired }).isRequired };
 
 export default Login;
