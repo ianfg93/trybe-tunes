@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
+import Carregando from './Carregando';
 
 class Header extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class Header extends React.Component {
             <li><Link to="/favorites" data-testid="link-to-favorites">Favorits</Link></li>
             <li><Link to="/profile" data-testid="link-to-profile">Search</Link></li>
           </ul>
-          {loading && <p>Carregando...</p>}
+          {loading && <Carregando />}
         </div>
       </header>
     );

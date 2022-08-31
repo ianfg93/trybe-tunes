@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
+import Carregando from '../components/Carregando';
 
 class Login extends React.Component {
   state = {
@@ -21,6 +22,7 @@ class Login extends React.Component {
     const { history } = this.props;
     this.setState({ loading: true });
     await createUser({ name: usuario });
+    this.setState({ loading: false });
     history.push('/search');
   };
 
@@ -30,27 +32,25 @@ class Login extends React.Component {
     return (
       <div data-testid="page-login">
         <h1>Login</h1>
-        {loading && <p>Carregando...</p>}
-        <form>
-          <label htmlFor="login-name-input">
-            Nome
-            <input
-              type="text"
-              data-testid="login-name-input"
-              id="login-name-input"
-              value={ usuario }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="login-submit-button"
-            disabled={ usuario.length < minimo }
-            onClick={ this.handleClick }
-          >
-            Entrar
-          </button>
-        </form>
+        {loading && <Carregando />}
+        <label htmlFor="login-name-input">
+          Nome
+          <input
+            type="text"
+            data-testid="login-name-input"
+            id="login-name-input"
+            value={ usuario }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="login-submit-button"
+          disabled={ usuario.length < minimo }
+          onClick={ this.handleClick }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
