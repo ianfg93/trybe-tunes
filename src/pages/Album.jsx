@@ -33,7 +33,12 @@ class Album extends React.Component {
         { musicas.length > 0 && (
           musicas.map((m, i) => (
             i > 0 && (
-              <MusicCard trackName={ m.trackName } previewUrl={ m.previewUrl } />
+              <MusicCard
+                trackName={ m.trackName }
+                previewUrl={ m.previewUrl }
+                trackId={ m.trackId }
+                musica={ m }
+              />
             ))))}
       </div>
     );
